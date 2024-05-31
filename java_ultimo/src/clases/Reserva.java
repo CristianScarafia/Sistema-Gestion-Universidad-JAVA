@@ -9,6 +9,7 @@ public class Reserva implements Serializable {
     private String tipo;
     private String codigoEntidad;
 
+
     public Reserva(Date fecha, String rangoHorario, String tipo, String codigoEntidad) {
         this.codigo = nextId++;
         this.fecha = fecha;
