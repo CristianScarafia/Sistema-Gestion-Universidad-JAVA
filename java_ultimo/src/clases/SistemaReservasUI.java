@@ -36,15 +36,14 @@ public class SistemaReservasUI {
             System.out.println("4. Listar eventos");
             System.out.println("5. Consultar aulas por piso");
             System.out.println("6. Consultar aulas por código de entidad");
-            System.out.println("7. Registrar reserva de asignatura");
-            System.out.println("8. Registrar reserva de curso");
-            System.out.println("9. Registrar reserva de evento");
-            System.out.println("10. Cancelar reserva");
-            System.out.println("11. Generar reporte de recaudación");
-            System.out.println("12. Generar reporte de reservas");
-            System.out.println("13. Listar reservas");
-            System.out.println("14. Guardar estado del sistema");
-            System.out.println("15. Salir");
+            System.out.println("7. Registrar reserva de curso");
+            System.out.println("8. Registrar reserva de evento");
+            System.out.println("9. Cancelar reserva");
+            System.out.println("10. Generar reporte de recaudación");
+            System.out.println("11. Generar reporte de reservas");
+            System.out.println("12. Listar reservas");
+            System.out.println("13. Guardar estado del sistema");
+            System.out.println("14. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
@@ -70,30 +69,27 @@ public class SistemaReservasUI {
                     consultarAulasPorCodigoEntidad();
                     break;
                 case 7:
-                    registrarReservaAsignatura();
-                    break;
-                case 8:
                     registrarReservaCurso();
                     break;
-                case 9:
+                case 8:
                     registrarReservaEvento();
                     break;
-                case 10:
+                case 9:
                     cancelarReserva();
                     break;
-                case 11:
+                case 10:
                     sistema.generarReporteRecaudacion();
                     break;
-                case 12:
+                case 11:
                     sistema.generarReporteReservas();
                     break;
-                case 13:
+                case 12:
                     sistema.listarReservas();
                     break;
-                case 14:
+                case 13:
                     guardarEstadoSistema();
                     break;
-                case 15:
+                case 14:
                     System.out.println("Saliendo del sistema...");
                     return;
                 default:
@@ -114,22 +110,16 @@ public class SistemaReservasUI {
         String codigo = scanner.nextLine();
         sistema.consultarAulasPorCodigoEntidad(codigo);
     }
-
-    private static void registrarReservaAsignatura() {
-        System.out.print("Ingrese el código de la asignatura: ");
-        String codigoAsignatura = scanner.nextLine();
-        sistema.registrarReservaAsignatura(codigoAsignatura);
-    }
-
+    
     private static void registrarReservaCurso() {
         try {
             System.out.print("Ingrese el código del curso: ");
             String codigoCurso = scanner.nextLine();
             System.out.print("Ingrese la fecha de inicio (yyyy-MM-dd): ");
-            Date fechaInicio = sdf.parse(scanner.nextLine());
+            String fechaInicioStr = scanner.nextLine();  // Cambiado a String
             System.out.print("Ingrese el rango horario (hh:mm-hh:mm): ");
             String rangoHorario = scanner.nextLine();
-            sistema.registrarReservaCurso(codigoCurso, fechaInicio, rangoHorario);
+            sistema.registrarReservaCurso(codigoCurso, fechaInicioStr, rangoHorario);
         } catch (Exception e) {
             System.out.println("Error al registrar la reserva del curso: " + e.getMessage());
         }
@@ -139,11 +129,18 @@ public class SistemaReservasUI {
         try {
             System.out.print("Ingrese el código del evento: ");
             String codigoEvento = scanner.nextLine();
+            
+            // Solicitar la fecha del evento
+            System.out.print("Ingrese la fecha del evento (yyyy-MM-dd): ");
+            String fechaEvento = scanner.nextLine();
+            
             System.out.print("Ingrese el horario del evento (hh:mm-hh:mm): ");
             String horario = scanner.nextLine();
+            
             System.out.print("¿Es un evento externo? (true/false): ");
             boolean esExterno = scanner.nextBoolean();
             scanner.nextLine(); // Consumir el salto de línea
+            
             String organizacion = "";
             double costoAlquiler = 0.0;
             if (esExterno) {
@@ -153,7 +150,9 @@ public class SistemaReservasUI {
                 costoAlquiler = scanner.nextDouble();
                 scanner.nextLine(); // Consumir el salto de línea
             }
-            sistema.registrarReservaEvento(codigoEvento, horario, esExterno, organizacion, costoAlquiler);
+            
+            // Llamada al método con la fecha incluida
+            sistema.registrarReservaEvento(codigoEvento, fechaEvento, horario, esExterno, organizacion, costoAlquiler);
         } catch (Exception e) {
             System.out.println("Error al registrar la reserva del evento: " + e.getMessage());
         }

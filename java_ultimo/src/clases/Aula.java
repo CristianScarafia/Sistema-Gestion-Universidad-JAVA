@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +28,15 @@ public class Aula implements Serializable {
 
     public void addReserva(Reserva reserva) {
         this.reservas.add(reserva);
+    }
+    
+    // Método para verificar si un aula está disponible en un horario específico
+    public boolean esAulaDisponible(java.util.Date date, String rangoHorario) {
+        for (Reserva reserva : reservas) {
+            if (reserva.getFecha().equals(date) && reserva.getRangoHorario().equals(rangoHorario)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
