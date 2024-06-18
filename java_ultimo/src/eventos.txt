@@ -1,0 +1,2 @@
+EVT001,Conferencia de Tecnología,2024-04-15,09:00,12:00,100,true,TechCorp,5000.0
+EVT002,Evento Interno,2024-04-20,10:00,14:00,50,false,,0.0
