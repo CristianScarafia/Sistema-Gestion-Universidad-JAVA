@@ -27,10 +27,10 @@ public class SistemaReservasUI {
                 System.out.println("Error al cargar los datos. Se inicializarán los datos vacíos.");
             }
         } else {
-            sistema.cargarAulasDesdeArchivo("aulas.txt");
-            sistema.cargarAsignaturasDesdeArchivo("asignaturas.txt");
-            sistema.cargarCursosDesdeArchivo("cursos.txt");
-            sistema.cargarEventosDesdeArchivo("eventos.txt");
+            sistema.cargarAulasDesdeArchivo("C:\\Users\\cris_\\OneDrive\\Escritorio - Gamer\\JAVA_ULTIMO_INTENTO\\ultimo\\java_ultimo\\src\\aulas.txt");
+            sistema.cargarAsignaturasDesdeArchivo("C:\\Users\\cris_\\OneDrive\\Escritorio - Gamer\\JAVA_ULTIMO_INTENTO\\ultimo\\java_ultimo\\src\\asignaturas.txt");
+            sistema.cargarCursosDesdeArchivo("java_ultimo/src/cursos.txt");
+            sistema.cargarEventosDesdeArchivo("C:\\Users\\cris_\\OneDrive\\Escritorio - Gamer\\JAVA_ULTIMO_INTENTO\\ultimo\\java_ultimo\\src\\eventos.txt");
         }
     }
 
