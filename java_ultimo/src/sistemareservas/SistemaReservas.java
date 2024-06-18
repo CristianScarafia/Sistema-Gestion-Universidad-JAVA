@@ -1,8 +1,6 @@
 package sistemareservas;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -10,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class SistemaReservas {
+public class SistemaReservas implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Map<Integer, Aula> aulas;
     private List<Asignatura> asignaturas;
     private List<CursoExtension> cursos;
@@ -235,5 +234,23 @@ public class SistemaReservas {
             }
         }
         return null;
+    }
+
+    public void guardarDatos(String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(this);
+            System.out.println("Datos guardados correctamente en " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static SistemaReservas cargarDatos(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (SistemaReservas) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

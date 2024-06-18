@@ -13,10 +13,25 @@ public class SistemaReservasUI {
     }
 
     public static void cargarDatos() {
-        sistema.cargarAulasDesdeArchivo("aulas.txt");
-        sistema.cargarAsignaturasDesdeArchivo("asignaturas.txt");
-        sistema.cargarCursosDesdeArchivo("cursos.txt");
-        sistema.cargarEventosDesdeArchivo("eventos.txt");
+        System.out.println("¿Desea cargar los datos desde un archivo serializado? (S/N): ");
+        String respuesta = scanner.nextLine().trim().toUpperCase();
+        if (respuesta.equals("S")) {
+            System.out.print("Ingrese el nombre del archivo de datos: ");
+            String filePath = scanner.nextLine();
+            SistemaReservas datosCargados = SistemaReservas.cargarDatos(filePath);
+            if (datosCargados != null) {
+                sistema = datosCargados;
+                reporte = new Reporte(sistema);
+                System.out.println("Datos cargados correctamente desde " + filePath);
+            } else {
+                System.out.println("Error al cargar los datos. Se inicializarán los datos vacíos.");
+            }
+        } else {
+            sistema.cargarAulasDesdeArchivo("aulas.txt");
+            sistema.cargarAsignaturasDesdeArchivo("asignaturas.txt");
+            sistema.cargarCursosDesdeArchivo("cursos.txt");
+            sistema.cargarEventosDesdeArchivo("eventos.txt");
+        }
     }
 
     public static void mostrarMenu() {
@@ -31,6 +46,7 @@ public class SistemaReservasUI {
             System.out.println("6. Generar reporte de reservas por aula");
             System.out.println("7. Generar reporte de monto recaudado en archivo");
             System.out.println("8. Generar reporte de reservas por aula en archivo");
+            System.out.println("9. Guardar datos en archivo serializado");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -60,6 +76,9 @@ public class SistemaReservasUI {
                     break;
                 case 8:
                     generarReporteReservasPorAulaEnArchivo();
+                    break;
+                case 9:
+                    guardarDatos();
                     break;
                 case 0:
                     System.out.println("Saliendo del sistema...");
@@ -158,5 +177,11 @@ public class SistemaReservasUI {
         String filePath = scanner.nextLine();
         reporte.generarReporteReservasPorAulaEnArchivo(filePath);
         System.out.println("Reporte de reservas por aula generado en " + filePath);
+    }
+
+    private static void guardarDatos() {
+        System.out.print("Ingrese el nombre del archivo para guardar los datos: ");
+        String filePath = scanner.nextLine();
+        sistema.guardarDatos(filePath);
     }
 }

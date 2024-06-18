@@ -1,13 +1,16 @@
 package sistemareservas;
 
-public class Reserva {
+import java.io.Serializable;
+
+public class Reserva implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static int contador = 0;
     private int codigo;
     private String fecha;
     private String horaInicio;
     private String horaFin;
-    private String tipo; // Asignatura, CursoExtension, Evento
-    private String idReferencia; // Código de asignatura, curso o evento
+    private String tipo;
+    private String idReferencia;
 
     public Reserva(String fecha, String horaInicio, String horaFin, String tipo, String idReferencia) {
         this.codigo = ++contador;

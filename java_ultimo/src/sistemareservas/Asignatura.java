@@ -1,6 +1,9 @@
 package sistemareservas;
 
-public class Asignatura {
+import java.io.Serializable;
+
+public class Asignatura implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String codigo;
     private String nombre;
     private String fechaInicio;
